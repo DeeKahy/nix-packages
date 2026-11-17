@@ -10,6 +10,7 @@ for a PR.
 | Package | Platforms | Notes |
 |---|---|---|
 | `pob-redux` | x86_64-linux, aarch64-linux, aarch64-darwin | Repackages the upstream release binaries (`.deb` on Linux, the `.app` on macOS) |
+| `awakened-poe-trade` | x86_64-linux, aarch64-linux, aarch64-darwin | Universal `.dmg` on macOS; on Linux it runs the AppImage's `app.asar` with nixpkgs' electron |
 
 ## Using it
 
@@ -59,3 +60,15 @@ Set `GITHUB_TOKEN` if the GitHub API starts rate limiting you.
   in nixpkgs and to `meta.maintainers`, and expect reviewers to ask
   whether a source build is possible (the repo builds with Tauri, bun and
   cargo, so it is, but it needs a bun dependency fetcher).
+
+## awakened-poe-trade notes
+
+- nixpkgs already has this package, but for Linux only. The point of
+  having it here is macOS. Upstreaming would mean adding the darwin
+  branch to the nixpkgs package rather than adding a new one.
+- Using the overlay replaces the nixpkgs version on Linux too, which
+  only matters if nixpkgs is newer.
+- Upstream does not sign the macOS app. If Gatekeeper blocks it, open it
+  once from Finder with right-click > Open.
+- Its hotkeys copy items out of the game, so macOS will ask for
+  Accessibility permission (System Settings > Privacy & Security).
